@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVision - Post Job</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .auth-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      width: 500px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    h1 {
+      color: #2563eb;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-size: 15px;
+    }
+    .post { background: green; }
+    .cancel { background: red; }
+    button:hover { opacity: 0.9; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h1>Post a Job</h1>
+
+    <form>
+      <input type="text" placeholder="Job Title" required>
+      <input type="text" placeholder="Company Name" required>
+      <input type="text" placeholder="Location" required>
+      <select>
+        <option>Full-Time</option>
+        <option>Part-Time</option>
+      </select>
+      <input type="text" placeholder="Salary Range (RM - RM)">
+      <input type="text" placeholder="Required Skills (comma separated)">
+      <textarea rows="4" placeholder="Job Description"></textarea>
+
+      <div class="actions">
+        <button class="post" type="submit">Post Job</button>
+        <button class="cancel" type="reset">Cancel</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

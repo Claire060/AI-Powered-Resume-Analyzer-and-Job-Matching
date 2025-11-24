@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVision - Profile</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #93c5fd;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --accent: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--primary);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo img {
+            height: 100px;
+            vertical-align: middle;
+        }
+
+        .navbar .links {
+            display: flex;
+        }
+
+        .navbar .links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .navbar .links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar .links a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar .auth .btn-auth {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .navbar .auth .btn-auth:hover {
+            background: var(--gray-200);
+            transform: translateY(-2px);
+        }
+
+        .navbar .auth .btn-auth.signup {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .navbar .auth .btn-auth.signup:hover {
+            background: var(--secondary-dark);
+        }
+
+        /* Dropdown Menu - Fixed */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-toggle i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-900) !important;
+            background: white;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--primary);
+            color: white !important;
+        }
+
+
+        /* Container */
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-right: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-avatar:hover .avatar-upload {
+            opacity: 1;
+        }
+
+        .profile-info h2 {
+            color: var(--gray-900);
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: var(--gray-700);
+            margin-bottom: 10px;
+        }
+
+        .profile-details {
+            margin-top: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            width: 120px;
+        }
+
+        .detail-value {
+            color: var(--gray-900);
+            flex: 1;
+        }
+
+        .edit-profile-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .edit-profile-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Applications Section */
+        .applications-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: var(--gray-900);
+        }
+
+        .application-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .application-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
+            background: var(--gray-50);
+            transition: all 0.3s ease;
+        }
+
+        .application-card:hover {
+            background: var(--gray-100);
+            transform: translateY(-2px);
+        }
+
+        .application-info h3 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .application-info p {
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        .application-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-accepted {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+
+        .status-rejected {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent);
+        }
+
+        .status-none {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--gray-700);
+        }
+
+        .no-applications {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-500);
+        }
+
+        .no-applications i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--gray-300);
+        }
+
+        /* Resume Analysis Section */
+        .analysis-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .score-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .improvement-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .improvement-item i {
+            color: var(--primary);
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        /* Edit Profile Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            background: var(--gray-50);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-btn.cancel {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .modal-btn.cancel:hover {
+            background: var(--gray-300);
+        }
+
+        .modal-btn.save {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-btn.save:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gray-900);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--secondary);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--gray-200);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+            color: var(--gray-200);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .dropdown {
+                width: 100%;
+                margin: 8px 0;
+            }
+            
+            .dropdown-toggle {
+                justify-content: center;
+                margin: 0;
+            }
+            
+            .dropdown-menu {
+                left: 50%;
+                transform: translateX(-50%) translateY(10px);
+                width: 90%;
+            }
+            
+            .dropdown-menu.show {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .application-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .application-status {
+                align-self: flex-start;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CVision Logo">
+            </a>
+        </div>
+
+        <div class="links">
+            <a href="/">Dashboard</a>
+
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">
+                    Resume Analyzer <i class="fas fa-chevron-down"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/resume-analyzer" class="dropdown-item">Resume Analyzer</a>
+                    <a href="/recruiter_analyzer" class="dropdown-item">Recruiter Analyzer</a>
+                    <a href="/shortlisted" class="dropdown-item">Shortlisted</a>
+                </div>
+            </div>
+
+            <a href="/job-matcher">Job Matcher</a>
+            <a href="/jobs">Jobs</a>
+            <a href="/profile" class="active">My Profile</a>
+        </div>
+        
+        <div class="auth-buttons">
+            <button id="loginBtn">Log in</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                        <div class="avatar-upload">Change Photo</div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="userName">Chong Li Hui</h2>
+                        <p id="userEmail">clhning04@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="profile-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Name:</div>
+                        <div class="detail-value" id="detailName">Chong Li Hui</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Email:</div>
+                        <div class="detail-value" id="detailEmail">clhning04@gmail.com</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Member Since:</div>
+                        <div class="detail-value" id="detailMemberSince">January 2023</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Location:</div>
+                        <div class="detail-value" id="detailLocation">Kuala Lumpur, Malaysia</div>
+                    </div>
+                </div>
+
+                <button class="edit-profile-btn" onclick="showEditForm()">Edit Profile</button>
+            </div>
+
+            <!-- Applications Section -->
+            <div class="applications-section">
+                <div class="section-header">
+                    <h2>Application History</h2>
+                </div>
+
+                <div class="application-list" id="applicationList">
+                    <!-- Applications will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Analysis Section -->
+        <div class="analysis-section">
+            <div class="section-header">
+                <h2>Recent Resume Analysis</h2>
+            </div>
+
+            <div class="score-display">
+                <div class="score-circle">78%</div>
+                <div class="score-label">Resume Score</div>
+            </div>
+
+            <h4 style="margin-bottom: 15px;">Areas for Improvement:</h4>
+            <div class="improvement-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Add more quantifiable achievements to your experience section</span>
+            </div>
+            <div class="improvement-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Include specific technical skills like Docker and Kubernetes</span>
+            </div>
+            <div class="improvement-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Add certifications to strengthen your profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="editProfileModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Profile</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editFirstName">First Name</label>
+                            <input type="text" id="editFirstName" class="form-control" placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLastName">Last Name</label>
+                            <input type="text" id="editLastName" class="form-control" placeholder="Enter last name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editEmail">Email Address</label>
+                        <input type="email" id="editEmail" class="form-control" placeholder="Enter email address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editLocation">Location</label>
+                        <input type="text" id="editLocation" class="form-control" placeholder="Enter your location">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" id="cancelEdit">Cancel</button>
+                <button class="modal-btn save" id="saveProfile">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Profile updated successfully</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CVision</h3>
+                <p>We help job seekers optimize their resumes and find the perfect job matches using AI-powered technology.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/">Dashboard</a>
+                <a href="/resume-analyzer">Resume Analyzer</a>
+                <a href="/job-matcher">Job Matcher</a>
+                <a href="/jobs">Browse Jobs</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@cvision.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 CVision. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load user data and applications immediately
+            loadUserData();
+            loadApplications();
+
+            // Set up dropdown functionality
+            setupDropdowns();
+            
+            // Set up modal event listeners
+            setupModalEvents();
+        });
+
+        function setupDropdowns() {
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const dropdownMenu = this.nextElementSibling;
+                    const isActive = dropdownMenu.classList.contains('show');
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    
+                    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                        toggle.classList.remove('active');
+                    });
+                    
+                    // Toggle current dropdown
+                    if (!isActive) {
+                        dropdownMenu.classList.add('show');
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+            });
+            
+            // Prevent dropdown from closing when clicking inside
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+
+        function loadUserData() {
+            // Your profile data
+            const userData = {
+                firstName: "Li Hui",
+                lastName: "Chong",
+                email: "clhning04@gmail.com",
+                memberSince: "January 2023",
+                location: "Kuala Lumpur, Malaysia",
+            };
+            
+            // Update the UI with user data
+            document.getElementById('userName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('userEmail').textContent = userData.email;
+            
+            document.getElementById('detailName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('detailEmail').textContent = userData.email;
+            document.getElementById('detailMemberSince').textContent = userData.memberSince;
+            document.getElementById('detailLocation').textContent = userData.location;
+            
+            // Populate form fields
+            document.getElementById('editFirstName').value = userData.firstName;
+            document.getElementById('editLastName').value = userData.lastName;
+            document.getElementById('editEmail').value = userData.email;
+            document.getElementById('editLocation').value = userData.location;
+        }
+
+        function loadApplications() {
+            // Mock applications data
+            const applications = [
+                {
+                    job_title: "Senior Frontend Developer",
+                    company: "TechCorp Inc.",
+                    applied_date: "2023-10-15",
+                    status: "Pending"
+                },
+                {
+                    job_title: "Full Stack Engineer",
+                    company: "WebSolutions Ltd.",
+                    applied_date: "2023-09-28",
+                    status: "Accepted"
+                },
+                {
+                    job_title: "React Developer",
+                    company: "Digital Innovations",
+                    applied_date: "2023-09-10",
+                    status: "Rejected"
+                },
+                {
+                    job_title: "Software Engineer",
+                    company: "StartUpXYZ",
+                    applied_date: "2023-08-22",
+                    status: "Pending"
+                }
+            ];
+
+            const applicationList = document.getElementById('applicationList');
+            
+            if (applications.length === 0) {
+                applicationList.innerHTML = `
+                    <div class="no-applications">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>No Applications Yet</h3>
+                        <p>You haven't applied to any jobs yet. Start exploring opportunities!</p>
+                    </div>
+                `;
+            } else {
+                let applicationsHTML = '';
+                
+                applications.forEach(app => {
+                    let statusClass = 'status-none';
+                    let statusText = 'No Status';
+                    
+                    if (app.status === "Accepted") {
+                        statusClass = 'status-accepted';
+                        statusText = 'Accepted';
+                    } else if (app.status === "Rejected") {
+                        statusClass = 'status-rejected';
+                        statusText = 'Rejected';
+                    } else if (app.status === "Pending") {
+                        statusClass = 'status-pending';
+                        statusText = 'Pending';
+                    }
+                    
+                    applicationsHTML += `
+                        <div class="application-card">
+                            <div class="application-info">
+                                <h3>${app.job_title}</h3>
+                                <p>${app.company} • Applied on: ${app.applied_date}</p>
+                            </div>
+                            <div class="application-status ${statusClass}">${statusText}</div>
+                        </div>
+                    `;
+                });
+                
+                applicationList.innerHTML = applicationsHTML;
+            }
+        }
+
+        function setupModalEvents() {
+            const modal = document.getElementById('editProfileModal');
+            const closeBtn = document.getElementById('modalClose');
+            const cancelBtn = document.getElementById('cancelEdit');
+            const saveBtn = document.getElementById('saveProfile');
+            
+            // Close modal when clicking X or cancel button
+            closeBtn.addEventListener('click', hideEditForm);
+            cancelBtn.addEventListener('click', hideEditForm);
+            
+            // Close modal when clicking outside the modal
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    hideEditForm();
+                }
+            });
+            
+            // Save profile changes
+            saveBtn.addEventListener('click', saveProfileChanges);
+        }
+
+        function showEditForm() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.add('active');
+        }
+
+        function hideEditForm() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.remove('active');
+        }
+
+        function saveProfileChanges() {
+            // Get form values
+            const firstName = document.getElementById('editFirstName').value;
+            const lastName = document.getElementById('editLastName').value;
+            const email = document.getElementById('editEmail').value;
+            const location = document.getElementById('editLocation').value;
+            
+            
+            // Validate required fields
+            if (!firstName || !lastName || !email) {
+                showToast('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Update the UI with new values
+            document.getElementById('userName').textContent = `${firstName} ${lastName}`;
+            document.getElementById('userEmail').textContent = email;
+            
+            document.getElementById('detailName').textContent = `${firstName} ${lastName}`;
+            document.getElementById('detailEmail').textContent = email;
+            document.getElementById('detailLocation').textContent = location;
+            
+            // In a real application, you would send this data to the server here
+            console.log('Profile updated:', {
+                firstName,
+                lastName,
+                email,
+                location,
+            });
+            
+            // Show success message and close modal
+            showToast('Profile updated successfully', 'success');
+            hideEditForm();
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = 'toast';
+            toast.classList.add(type);
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
